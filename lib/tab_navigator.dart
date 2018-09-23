@@ -9,9 +9,10 @@ class TabNavigatorRoutes {
 }
 
 class TabNavigator extends StatelessWidget {
-  TabNavigator({this.navigatorKey, this.tabItem});
+  TabNavigator({this.navigatorKey, this.tabItem, this.rootContext}); //changed
   final GlobalKey<NavigatorState> navigatorKey;
   final TabItem tabItem;
+  final BuildContext rootContext; //added
 
   void _push(BuildContext context, {int materialIndex: 500}) {
     var routeBuilders = _routeBuilders(context, materialIndex: materialIndex);
@@ -37,6 +38,7 @@ class TabNavigator extends StatelessWidget {
             color: TabHelper.color(tabItem),
             title: TabHelper.description(tabItem),
             materialIndex: materialIndex,
+            rootContext: rootContext, //added
           ),
     };
   }

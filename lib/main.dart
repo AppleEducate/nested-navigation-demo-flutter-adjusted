@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nested_navigation_demo_flutter/app.dart';
+import 'package:nested_navigation_demo_flutter/input_page.dart'; //added
 
 void main() => runApp(new MyApp());
 
@@ -12,7 +13,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new App(),
+      /*
+       changed home to routes and added the routes
+       */
+      routes: {
+        "/": (BuildContext context) => App(),
+        "/inputPage": (BuildContext context) => InputPage(),
+
+      }
     );
   }
 }

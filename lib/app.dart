@@ -8,8 +8,16 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  TabItem currentTab = TabItem.red;
-  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+  static TabItem currentTab = TabItem.red;
+  /*
+    changed currentTab to static to show the last shown navigator
+    if it is not static it shows always the red Navigator if you pop from inputPage and not the last opened one
+  */
+  static Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+    /*
+      changed navigatorKeys to static to prevent generating new keys on every reuse of the App widget
+      if new keys will generated new navigators will be used and because of this the state of each tab will be deleted
+    */
     TabItem.red: GlobalKey<NavigatorState>(),
     TabItem.green: GlobalKey<NavigatorState>(),
     TabItem.blue: GlobalKey<NavigatorState>(),
@@ -28,9 +36,9 @@ class AppState extends State<App> {
           !await navigatorKeys[currentTab].currentState.maybePop(),
       child: Scaffold(
         body: Stack(children: <Widget>[
-          _buildOffstageNavigator(TabItem.red),
-          _buildOffstageNavigator(TabItem.green),
-          _buildOffstageNavigator(TabItem.blue),
+          _buildOffstageNavigator(TabItem.red, context), //changed
+          _buildOffstageNavigator(TabItem.green, context), //changed
+          _buildOffstageNavigator(TabItem.blue, context), //changed
         ]),
         bottomNavigationBar: BottomNavigation(
           currentTab: currentTab,
@@ -40,12 +48,18 @@ class AppState extends State<App> {
     );
   }
 
-  Widget _buildOffstageNavigator(TabItem tabItem) {
+  Widget _buildOffstageNavigator(TabItem tabItem, BuildContext rootContext) {
+    /*
+    _buildOffstageNavigator needs now the BuildContext of the App widget
+    this context is the context to the root navigator of MaterialApp
+    the context is passed to each navigator and then to each page to give every page access to the root navigator
+     */
     return Offstage(
       offstage: currentTab != tabItem,
       child: TabNavigator(
         navigatorKey: navigatorKeys[tabItem],
         tabItem: tabItem,
+        rootContext: rootContext,
       ),
     );
   }
