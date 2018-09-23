@@ -36,9 +36,9 @@ class AppState extends State<App> {
           !await navigatorKeys[currentTab].currentState.maybePop(),
       child: Scaffold(
         body: Stack(children: <Widget>[
-          _buildOffstageNavigator(TabItem.red, context), //changed
-          _buildOffstageNavigator(TabItem.green, context), //changed
-          _buildOffstageNavigator(TabItem.blue, context), //changed
+          _buildOffstageNavigator(TabItem.red),
+          _buildOffstageNavigator(TabItem.green),
+          _buildOffstageNavigator(TabItem.blue),
         ]),
         bottomNavigationBar: BottomNavigation(
           currentTab: currentTab,
@@ -48,18 +48,18 @@ class AppState extends State<App> {
     );
   }
 
-  Widget _buildOffstageNavigator(TabItem tabItem, BuildContext rootContext) {
-    /*
-    _buildOffstageNavigator needs now the BuildContext of the App widget
-    this context is the context to the root navigator of MaterialApp
-    the context is passed to each navigator and then to each page to give every page access to the root navigator
-     */
+  Widget _buildOffstageNavigator(TabItem tabItem) {
+
     return Offstage(
       offstage: currentTab != tabItem,
       child: TabNavigator(
         navigatorKey: navigatorKeys[tabItem],
         tabItem: tabItem,
-        rootContext: rootContext,
+        rootContext: context, //added
+        /*
+          this context is the context to the root navigator of MaterialApp
+          the context is passed to each navigator and then to each page to give every page access to the root navigator
+         */
       ),
     );
   }
