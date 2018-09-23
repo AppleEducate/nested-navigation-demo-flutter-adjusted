@@ -85,6 +85,7 @@ class InputPage extends StatelessWidget {
 
 ## Credits
 Andrea Bizzotto: for publishing the root code of this repository
+
 Brian Egan: for suggesting to use Stack + Offstage & Navigator widgets.
 
 ## [License: MIT](https://github.com/bizz84/nested-navigation-demo-flutter/blob/master/LICENSE.md)
