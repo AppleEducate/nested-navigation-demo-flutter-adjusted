@@ -61,6 +61,15 @@ Then you can call on your page this to navigate to the InputPage
 Navigator.of(rootContext).pushNamed('/inputPage');
 ```
 
+You also have to change this so if you pop from InputPage you go back to the navigator you used before
+```dart
+static TabItem currentTab = TabItem.red;
+  
+static Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+    //...
+};
+```
+
 Important to know is you have no access to the BottomNavigation inside your InputPage
 
 input_page.dart
