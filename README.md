@@ -57,11 +57,15 @@ ColorDetailPage({this.color, this.title, this.materialIndex: 500, this.rootConte
 ```
 
 Then you can call on your page this to navigate to the InputPage
+
+color_detail_page.dart
 ```dart
 Navigator.of(rootContext).pushNamed('/inputPage');
 ```
 
 You also have to change this so if you pop from InputPage you go back to the navigator you used before
+
+app.dart
 ```dart
 static TabItem currentTab = TabItem.red;
   
